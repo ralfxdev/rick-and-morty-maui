@@ -1,0 +1,57 @@
+﻿@page "/characters"
+
+@using rick_and_morty_maui.Models
+@using rick_and_morty_maui.Services
+@inject IRickAndMortyService service
+
+<h1>Characters</h1>
+
+@if (_rickAndMorty == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+    <div class="card-container">
+        @foreach (var result in _rickAndMorty.results)
+        {
+            <div class="card">
+                <img src="@result.image" class="card-image" />
+                <h3>@result.name</h3>
+            </div>
+        }
+    </div>
+}
+
+@code {
+	private RickAndMorty _rickAndMorty;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_rickAndMorty = await service.Get();
+	}
+}
+
+<style>
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .card {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 200px;
+    }
+
+    .card-image {
+        max-width: 100%;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+</style>

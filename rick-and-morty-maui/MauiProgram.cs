@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using rick_and_morty_maui.Models;
+using rick_and_morty_maui.Services;
 
 namespace rick_and_morty_maui
 {
@@ -15,6 +17,7 @@ namespace rick_and_morty_maui
                 });
 
             builder.Services.AddMauiBlazorWebView();
+            builder.Services.AddSingleton<IRickAndMortyService, RickAndMortyService>();
 
 #if DEBUG
     		builder.Services.AddBlazorWebViewDeveloperTools();
